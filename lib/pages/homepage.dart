@@ -2,29 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class HomePage extends StatelessWidget {
+  final Function(int)? onNavigate;
+
+  const HomePage({Key? key, this.onNavigate}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xFFAC263E),
-        title: const Text(
-          'RSVP',
-          style: TextStyle(
-            fontFamily: 'Moldyen',
-            color: Colors.white,
-          ),
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () {},
-          ),
-        ],
-      ),
       body: Stack(
         children: [
           // Background Image
@@ -33,26 +16,27 @@ class HomePage extends StatelessWidget {
             width: double.infinity,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/bg.jpg'), // Placeholder
+                image: AssetImage('assets/wedcouple.jpg'), // Placeholder
                 fit: BoxFit.cover,
               ),
             ),
           ),
           // Gradient Overlay
-          Container(
+            Container(
             height: double.infinity, // Full screen height
             width: double.infinity,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Colors.transparent, // Top: Transparent
-                  Colors.white, // Bottom: Slightly faded
-                ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Colors.transparent, // Top: Transparent
+                Colors.white, // Bottom: More white (80% opacity)
+              ],
+              stops: [0.2, 1.0], // Adjust the gradient to make white cover 80%
               ),
             ),
-          ),
+            ),
           // Fixed Content Layout
           Padding(
             padding: const EdgeInsets.only(top: 125), // Move contents 100px down
@@ -71,48 +55,17 @@ class HomePage extends StatelessWidget {
                 ),
                 SizedBox(height: 10), // Adjust spacing between text and icons
 
-                // Icons Row
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                    TextButton(
-                      onPressed: () {},
-                      style: TextButton.styleFrom(
-                      backgroundColor: Colors.transparent,
-                      padding: EdgeInsets.zero,
-                      ),
-                      child: _buildIconWithLabel(Icons.upload, 'Upload'),
-                    ),
-                    SizedBox(width: 20), // Adjust spacing between icons
-                    TextButton(
-                      onPressed: () {},
-                      style: TextButton.styleFrom(
-                      backgroundColor: Colors.transparent,
-                      padding: EdgeInsets.zero,
-                      ),
-                      child: _buildIconWithLabel(Icons.chat, 'Chat'),
-                    ),
-                    SizedBox(width: 20),
-                    TextButton(
-                      onPressed: () {},
-                      style: TextButton.styleFrom(
-                      backgroundColor: Colors.transparent,
-                      padding: EdgeInsets.zero,
-                      ),
-                      child: _buildIconWithLabel(Icons.event, 'Planning'),
-                    ),
-                    SizedBox(width: 20),
-                    TextButton(
-                      onPressed: () {},
-                      style: TextButton.styleFrom(
-                      backgroundColor: Colors.transparent,
-                      padding: EdgeInsets.zero,
-                      ),
-                      child: _buildIconWithLabel(Icons.people, 'RSVP'),
-                    ),
-                  ],
+                      _buildNavItem(Icons.upload_outlined, 'Upload', 1, context),
+                      _buildNavItem(Icons.calendar_today_outlined, 'Planning', 2, context),
+                      _buildNavItem(Icons.people_outline, 'Us', 3, context),
+                    ],
+                  ),
                 ),
-                SizedBox(height: 20), // Adjust spacing between icons and carousel
 
                 // Carousel Section
                 CarouselSlider(
@@ -123,29 +76,31 @@ class HomePage extends StatelessWidget {
                     enlargeCenterPage: true,
                   ),
                   items: [
-                    'assets/1.jpg',
-                    'assets/2.jpg',
-                    'assets/3.jpg',
-                    'assets/4.jpg',
-                    'assets/5.jpg',
-                    'assets/6.jpg',
-                    'assets/7.jpg',
-                    'assets/8.jpg',
+                    'assets/wedcouple2.jpg',
+                    'assets/wedcouple3.jpg',
+                    'assets/wedcouple4.jpg',
+                    'assets/wedcouple5.jpg',
+                    'assets/wedcouple6.jpg',
+                    'assets/wedcouple7.jpg',
+                    'assets/wedcouple8.jpg',
+                    'assets/wedcouple9.jpg',
+                    'assets/wedcouple10.jpg',
                   ].map((imagePath) {
-                    return Builder(
-                      builder: (BuildContext context) {
-                        return Container(
-                          width: MediaQuery.of(context).size.width,
-                          margin: EdgeInsets.symmetric(horizontal: 5.0),
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(imagePath),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          '/stories',
+                          arguments: {'imagePath': imagePath},
                         );
                       },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.asset(
+                          imagePath,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     );
                   }).toList(),
                 ),
@@ -153,7 +108,9 @@ class HomePage extends StatelessWidget {
 
                 // Button Section
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/memories');
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.red[800],
                     shape: RoundedRectangleBorder(
@@ -178,20 +135,62 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildIconWithLabel(IconData icon, String label) {
-    return Column(
-      children: [
-        Icon(icon, color: Color(0XFFAC263E), size: 30),
-        SizedBox(height: 5),
-        Text(
-          label,
-          style: TextStyle(
-            fontFamily: 'Montserrat',
-            color: Color(0xFFAC263E),
-            fontSize: 12,
+  Widget _buildNavItem(IconData icon, String label, int index, BuildContext context) {
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(context, _getRouteName(index)),
+      child: Column(
+        children: [
+          // Icon with white circular background
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.2), // White background
+              shape: BoxShape.circle, // Circular shape
+            ),
+            padding: EdgeInsets.all(8.0), // Padding inside the circle
+            child: Icon(icon, color: Color(0XFFAC263E), size: 30),
           ),
-        ),
-      ],
+          SizedBox(height: 5), // Spacing between icon and label
+          Text(
+            label,
+            style: TextStyle(
+              fontFamily: 'Montserrat',
+              color: Color(0xFFAC263E),
+              fontSize: 12,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _getRouteName(int index) {
+    switch (index) {
+      case 1:
+        return '/upload';
+      case 2:
+        return '/planning';
+      case 3:
+        return '/us';
+      default:
+        return '/';
+    }
+  }
+}
+
+class StoriesPage extends StatelessWidget {
+  final String imagePath;
+
+  const StoriesPage({Key? key, required this.imagePath}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Story'),
+      ),
+      body: Center(
+        child: Image.asset(imagePath),
+      ),
     );
   }
 }

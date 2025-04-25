@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   carousel_slider: ^5.0.0
+  image_picker: ^1.0.4
 
 dev_dependencies: 
   flutter_test:
@@ -20,19 +21,53 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/2.jpg
-    - assets/3.jpg
-    - assets/1.jpg
-    - assets/4.jpg
-    - assets/5.jpg
-    - assets/6.jpg
-    - assets/7.jpg
-    - assets/8.jpg
-    - assets/bg.jpg
+    - assets/wedcouple.jpg
+    - assets/wedcouple2.jpg
+    - assets/wedcouple3.jpg
+    - assets/wedcouple4.jpg
+    - assets/wedcouple5.jpg
+    - assets/wedcouple6.jpg
+    - assets/wedcouple7.jpg
+    - assets/wedcouple8.jpg
+    - assets/wedcouple9.jpg
+    - assets/wedcouple10.jpg
+    - assets/dinner1.jpg
+    - assets/dinner2.jpg
+    - assets/dinner3.jpg
+    - assets/dinner4.jpg
+    - assets/dinner5.jpg
+    - assets/dinner6.jpg
+    - assets/dinner7.jpg
+    - assets/venue1.jpg
+    - assets/venue2.jpg
+    - assets/venue3.jpg
+    - assets/venue4.jpg
+    - assets/venue5.jpg
+    - assets/venue6.jpg
+    - assets/venue7.jpg
+    - assets/prepare1.jpg
+    - assets/prepare2.jpg
+    - assets/prepare3.jpg
+    - assets/prepare4.jpg
+    - assets/prepare5.jpg
+    - assets/party1.jpg
+    - assets/party2.jpg
+    - assets/party3.jpg
+    - assets/party4.jpg
+    - assets/party5.jpg
+    - assets/reactions/heart.png
+    - assets/reactions/laugh.png
+    - assets/reactions/wow.png
+    - assets/reactions/sad.png
+    - assets/reactions/angry.png
+    - assets/reactions/like.png
   fonts:
     - family: Montserrat
       fonts:
         - asset: assets/fonts/Montserrat-Regular.otf
+    - family: Montserrat-bold
+      fonts:
+        - asset: assets/fonts/Montserrat-Bold.otf
     - family: Moldyen
       fonts:
         - asset: assets/fonts/Moldyen.otf
